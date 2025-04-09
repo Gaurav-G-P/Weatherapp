@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather Forecast</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Live Weather Forecast</h1>
+        </header>
+
+        <div class="search-bar">
+            <form method="POST" action="/get_weather">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>
+
+        {% if weather %}
+        <div id="weather-info" class="weather-info">
+            <h2>{{ weather.city }}, {{ weather.country }}</h2>
+            <p>Temperature: {{ weather.temperature }}°C</p>
+            <p>Condition: {{ weather.description }}</p>
+            <p>Humidity: {{ weather.humidity }}%</p>
+            <p>Wind Speed: {{ weather.wind_speed }} m/s</p>
+        </div>
+        {% elif error %}
+        <div class="error-message">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
